@@ -7,7 +7,7 @@ await page.locator('input[data-test="username"]').fill(data.username);
 await page.locator('input[type="password"]').fill(data.password);
 await page.locator('input[type="submit"]').click();
 //assertion
-
+await expect(page).toHaveURL("https://www.saucedemo.com/v1/inventory.html");
 await expect(page.locator("div.product_label")).toBeVisible()
 })
 test("verify the login with valid username and invalid password", async({page})=>{
