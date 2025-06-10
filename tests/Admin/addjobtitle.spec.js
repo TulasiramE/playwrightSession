@@ -3,7 +3,7 @@ import logindata from "../../testData/orangelogin.json";
 import jobData from "../../testData/jobtitledata.json";
 test("adding the job title functionalities", async ({ page }) => {
   await page.goto(
-    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    "/web/index.php/auth/login"
   );
   await page.locator("input[name='username']").fill(logindata.username);
   await page.locator("input[type='password']").fill(logindata.password);
