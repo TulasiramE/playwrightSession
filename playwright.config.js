@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+require('dotenv').config()
 
 /**
  * Read environment variables from file.
@@ -15,7 +16,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   timeout:60000,
    expect:{
-    timeout:30000
+    timeout:60000
    },
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -33,6 +34,9 @@ export default defineConfig({
     baseURL:"https://opensource-demo.orangehrmlive.com",
     screenshot:"on",
     headless:false,
+    video:"on",
+    viewport:{width:1970,height:1080},
+
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://localhost:3000',
 
