@@ -1,6 +1,13 @@
 import { test, expect } from "@playwright/test";
 import jobData from "../../testData/jobtitledata.json";
-test("adding the job title functionalities", async ({ page }) => {
+let jobTitles ={
+  jobtitle1:"AzureTest",
+  jobtitle2:"APITest",
+  jobtitle3:"CEO",
+  jobtitle4:"CloudCEO",
+}
+for(let title in jobTitles){
+  test(`adding the job title functionalities ${jobTitles[title]}`, async ({ page }) => {
   await page.goto(
     "/web/index.php/auth/login"
   );
@@ -25,9 +32,10 @@ test("adding the job title functionalities", async ({ page }) => {
       'button[class="oxd-button oxd-button--medium oxd-button--secondary"]'
     )
     .click();
+    const random =Math.random().toString(36).substring(2);
   await page
     .locator('(//input[@class="oxd-input oxd-input--active"])[2]')
-    .fill(jobData.jobtitle);
+    .fill(jobTitles[title]+random);
   await page
     .locator('textarea[placeholder="Type description here"]')
     .fill(jobData.jobDescription);
@@ -37,3 +45,5 @@ test("adding the job title functionalities", async ({ page }) => {
 
   await expect(page.locator("h6[class='oxd-text oxd-text--h6 orangehrm-main-title']")).toBeVisible()
 });
+
+}

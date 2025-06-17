@@ -1,24 +1,19 @@
 import { test, expect } from '@playwright/test';
-
-test('test', async ({ page }) => {
+ let menuItems={
+  menu1:"Admin",
+  menu2:"PIM",
+  menu3:"Leave",
+  menu4:"Time",
+  menu5:"Recruitment",
+  menu6:"My Info",
+ }
+ for(let item in menuItems){
+  test(`${menuItems[item]}`, async ({ page }) => {
   await page.goto('/web/index.php/auth/login');
-  console.log("configured URL")
-  await page.getByRole('textbox', { name: 'Username' }).click();
-  await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
-  console.log("entered username")
-  await page.getByRole('textbox', { name: 'Password' }).click();
-  await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
-  console.log("entered password")
-  await page.getByRole('button', { name: 'Login' }).click();
-  await page.getByRole('link', { name: 'PIM' }).click();
-  await page.getByRole('link', { name: 'Add Employee' }).click();
-  await page.getByRole('textbox', { name: 'First Name' }).click();
-  await page.getByRole('textbox', { name: 'First Name' }).fill('Tulasi');
-  await page.getByRole('textbox', { name: 'Last Name' }).click();
-  await page.getByRole('textbox', { name: 'Last Name' }).fill('ram');
-  await page.getByRole('textbox').nth(4).click();
-  await page.getByRole('textbox').nth(4).fill('7878');
-  await page.getByRole('button', { name: 'Save' }).click();
-  
-  await expect(page.getByRole('heading', { name: 'Personal Details' })).toBeVisible();
+  await page.locator('input[name="username"]').fill(process.env.ORG_USERNAME);
+  await page.locator('input[type="password"]').fill(process.env.ORG_PASSWORD);
+  await page.locator('button[type="submit"]').click();
+  await expect(page.getByRole('link', { name: menuItems[item] })).toBeVisible({ force: true });
 });
+    
+  }
